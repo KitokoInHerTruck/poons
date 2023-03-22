@@ -177,6 +177,9 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    kaminari-i18n (0.5.0)
+      kaminari
+      rails
     kt-paperclip (7.1.1)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -259,6 +262,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.5.0)
       loofah (~> 2.19, >= 2.19.1)
+    rails-i18n (7.0.6)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 8)
     railties (7.0.4.3)
       actionpack (= 7.0.4.3)
       activesupport (= 7.0.4.3)
@@ -388,6 +394,9 @@ GEM
       ransack (~> 2.0)
       sprockets-rails
       state_machines-activerecord (~> 0.6)
+    solidus_i18n (2.1.1)
+      solidus_core (>= 1.1, < 4)
+      solidus_support (~> 0.4)
     solidus_paypal_commerce_platform (1.0.0)
       deface (~> 1.5)
       paypalhttp
@@ -469,10 +478,12 @@ DEPENDENCIES
   ffaker (~> 2.13)
   importmap-rails
   jbuilder
+  kaminari-i18n (~> 0.5.0)
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
   rails-controller-testing (~> 1.0.5)
+  rails-i18n (>= 5.1)
   rspec-activemodel-mocks (~> 1.1.0)
   rspec-rails
   rubocop (~> 1.0)
@@ -484,6 +495,7 @@ DEPENDENCIES
   solidus_auth_devise (~> 2.5)
   solidus_backend (~> 3.3)
   solidus_core (~> 3.3)
+  solidus_i18n (~> 2.0)
   solidus_paypal_commerce_platform (~> 1.0)
   solidus_sample (~> 3.3)
   solidus_support

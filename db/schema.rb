@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_22_100406) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_22_121355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_100406) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "attendances", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "strat_date"
+    t.integer "duration"
+    t.integer "price"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -84,6 +100,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_100406) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "paypal_funding_source"
+  end
+
+  create_table "registrations", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "spree_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_registrations_on_event_id"
+    t.index ["spree_user_id"], name: "index_registrations_on_spree_user_id"
   end
 
   create_table "spree_addresses", id: :serial, force: :cascade do |t|
@@ -1236,6 +1261,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_100406) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "registrations", "events"
+  add_foreign_key "registrations", "spree_users"
   add_foreign_key "spree_promotion_code_batches", "spree_promotions", column: "promotion_id"
   add_foreign_key "spree_promotion_codes", "spree_promotion_code_batches", column: "promotion_code_batch_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_categories", column: "tax_category_id"

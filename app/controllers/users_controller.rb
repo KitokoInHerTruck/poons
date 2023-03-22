@@ -1,14 +1,29 @@
 # frozen_string_literal: true
 
+class SpreeUser < ActiveRecord::Base
+  has_many :registrations
+  has_many :events, through: :registrations
+end
+
 class UsersController < StoreController
   skip_before_action :set_current_order, only: :show, raise: false
   prepend_before_action :authorize_actions, only: :new
 
   include Taxonomies
 
+  def admin?
+    role == "admin"
+  end
+
+  def index
+    @users = User.joins(registrations: :event).where(events: {name: 'Event Name'})
+  end
+
   def show
     load_object
     @orders = @user.orders.complete.order('completed_at desc')
+    # @spree_users = @user.find(params[:id])
+    # @events = @user.events
   end
 
   def create

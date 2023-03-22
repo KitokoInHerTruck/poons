@@ -1,0 +1,20 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Liste des concours</h1>
+
+<div id="events">
+  <% @events.each do |event| %>
+    <%= render event %>
+    <p>
+      <%= link_to "Show this event", event %>
+    </p>
+    <h2>Participants :</h2>
+    <ul>
+      <% event.attendees.each do |attendee| %>
+        <li><%= attendee.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<%= link_to "New event", new_event_path %>

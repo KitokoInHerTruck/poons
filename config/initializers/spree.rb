@@ -4,10 +4,16 @@
 # Solidus version defaults for preferences that are not overridden
 Spree.load_defaults '3.3.1'
 
+
+
 Spree.config do |config|
   # Core:
   # Default currency for new sites
-  config.currency = "USD"
+  config.currency = "EUR"
+  # Frontend
+
+  # Custom logo for the frontend
+  config.logo = "app/assets/images/poons.png"
 
   # Uncomment to stop tracking inventory levels in the application
   # config.track_inventory_levels = false
@@ -31,7 +37,7 @@ Spree.config do |config|
   # Admin:
 
   # Custom logo for the admin
-  # config.admin_interface_logo = "logo/solidus.svg"
+  config.admin_interface_logo = "poons.svg"
 
   # Gateway credentials can be configured statically here and referenced from
   # the admin. They can also be fully configured from the admin.
@@ -50,7 +56,7 @@ Spree.config do |config|
 end
 
 Spree::Backend::Config.configure do |config|
-  config.locale = 'en'
+  config.locale = 'fr'
 
   # Uncomment and change the following configuration if you want to add
   # a new menu item:

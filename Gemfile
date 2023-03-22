@@ -102,3 +102,6 @@ group :development, :test do
 end
 
 gem "solidus_paypal_commerce_platform", "~> 1.0"
+gem "solidus_i18n", "~> 2.0"
+gem 'rails-i18n', '>= 5.1'
+gem 'kaminari-i18n', '~> 0.5.0'

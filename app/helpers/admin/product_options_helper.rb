@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ProductOptionsHelper
+module Admin::ProductOptionsHelper
   def product_variants_with_options(product)
     product.variants_and_option_values_for(current_pricing_options)
   end
