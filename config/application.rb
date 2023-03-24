@@ -18,6 +18,10 @@ module Poons
       end
     end
 
+    config.paths['app/views'] << "app/views/layouts"
+    config.paths['app/views'] << "app/views/shared"
+
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.assets.paths << Rails.root.join("app", "assets", "images")

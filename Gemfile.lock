@@ -406,6 +406,11 @@ GEM
       solidus_webhooks (~> 0.2)
     solidus_sample (3.3.1)
       solidus_core (= 3.3.1)
+    solidus_stripe (4.4.0)
+      activemerchant (>= 1.105)
+      rexml
+      solidus_core (>= 2.3, < 4)
+      solidus_support (~> 0.8)
     solidus_support (0.9.1)
     solidus_webhooks (0.4.0)
       solidus_core (>= 2.0.0, < 4)
@@ -473,6 +478,7 @@ DEPENDENCIES
   capybara-screenshot (~> 1.0)
   database_cleaner (~> 1.7)
   debug
+  deface (~> 1.9)
   factory_bot (>= 4.8)
   factory_bot_rails
   ffaker (~> 2.13)
@@ -498,6 +504,7 @@ DEPENDENCIES
   solidus_i18n (~> 2.0)
   solidus_paypal_commerce_platform (~> 1.0)
   solidus_sample (~> 3.3)
+  solidus_stripe (~> 4.4)
   solidus_support
   sprockets-rails
   stimulus-rails

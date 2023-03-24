@@ -1,4 +1,11 @@
-<%= form_for @event, url: admin_events_path do |f| %>
+  <h1>Nouveau concours</h1>
+
+  <%= render "form", event: @event %>
+  
+  
+  
+  
+  <%= form_for @event, url: admin_events_path do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %>
 
@@ -19,3 +26,11 @@
 
   <%= f.submit "Create Event" %>
 <% end %>
+
+
+
+
+
+<div>
+  <%= link_to "Back to events", admin_events_path %>
+</div>

@@ -53,10 +53,25 @@ Spree.config do |config|
   #   server: Rails.env.production? ? 'production' : 'test',
   #   test_mode: !Rails.env.production?
   # )
+
 end
 
 Spree::Backend::Config.configure do |config|
   config.locale = 'fr'
+
+    config.menu_items << config.class::MenuItem.new(
+    [:elevage],
+    'ban',
+    url: '/admin/elevages',
+    position: 0
+  )
+
+    config.menu_items << config.class::MenuItem.new(
+    [:event],
+    'calendar',
+    url: '/admin/events',
+    position: 0
+  )
 
   # Uncomment and change the following configuration if you want to add
   # a new menu item:
@@ -77,6 +92,8 @@ end
 Spree::Api::Config.configure do |config|
   config.requires_authentication = true
 end
+
+
 
 
 # Rules for avoiding to store the current path into session for redirects

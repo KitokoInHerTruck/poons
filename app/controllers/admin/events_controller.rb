@@ -1,6 +1,6 @@
-class Admin::EventsController < Spree::Admin::BaseController
-  before_action :set_event, only: %i[ show edit update destroy ]
-  before_action :require_admin, only: %i[ new create edit update destroy ]
+class Admin::EventsController < ApplicationController
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin, except: [:show, :register, :unregister]
 
   def index
     @events = Event.all
@@ -23,11 +23,10 @@ class Admin::EventsController < Spree::Admin::BaseController
   end
 
   def edit
-    @event = Event.find(params[:id])
   end
 
   def update
-    if @event.update(event_params[:id])
+    if @event.update(event_params)
       redirect_to admin_events_path, notice: "Event updated successfully."
     else
       render :edit
@@ -35,9 +34,19 @@ class Admin::EventsController < Spree::Admin::BaseController
   end
 
   def destroy
-    @event = Event.find(params[:id])
     @event.destroy
     redirect_to admin_events_path, notice: "Event deleted successfully."
+  end
+
+  def register
+    @event.registrations.create(user: current_user)
+    redirect_to @event, notice: "You have been registered for the event."
+  end
+
+  def unregister
+    registration = @event.registrations.find_by(user: current_user)
+    registration.destroy if registration
+    redirect_to @event, notice: "You have been unregistered from the event."
   end
 
   private
@@ -46,6 +55,11 @@ class Admin::EventsController < Spree::Admin::BaseController
     params.require(:event).permit(:name, :description, :start_time, :end_time)
   end
 
-  def check_authorization
-    authorize! :manage, Event
+  def set_event
+    @event = Event.find(params[:id])
   end
+
+  def require_admin
+    redirect_to root_path, alert: "You must be an admin to access this page." unless current_spree_user && current_spree_user.admin?
+  end
+end

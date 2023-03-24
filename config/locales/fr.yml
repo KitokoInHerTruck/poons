@@ -31,7 +31,6 @@
 
 fr:
 
-
   activemodel:
     attributes:
       spree/order_cancellations:
@@ -915,7 +914,9 @@ fr:
       tab:
         checkout: Remboursements et retours
         configuration: Configuration
+        event: Event
         display_order: Afficher les commandes
+        elevage: "Élevage"
         option_types: Types d'option
         orders: Commandes
         overview: Vue d'ensemble

@@ -1,0 +1,11 @@
+<h1><%= @elevage.nom %></h1>
+<p><%= @elevage.description %></p>
+<p>Prix : <%= @elevage.prix %></p>
+
+<% @elevage.images.each do |image| %>
+  <%= image_tag image.url %>
+<% end %>
+
+<% @elevage.videos.each do |video| %>
+  <%= video_tag video.url %>
+<% end %>

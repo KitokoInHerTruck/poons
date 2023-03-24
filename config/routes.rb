@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   resources :events
   mount SolidusPaypalCommercePlatform::Engine, at: '/solidus_paypal_commerce_platform'
   root to: 'home#index'
-    get 'events', to: 'events#index'
 
   namespace :admin do
   resources :events
-end
+  resources :elevages
+  end
 
   devise_for(:user, {
     class_name: 'Spree::User',
