@@ -1,6 +1,14 @@
 class Admin::EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin, except: [:show, :register, :unregister]
+  include Admin::EventsHelper
+
+  before_action :set_event, only: [:admin_events_show, :edit, :update, :destroy]
+  before_action :require_admin, except: [:user_events_show, :new, :register, :unregister]
+  before_action :authenticate_spree_user!, except: [:index, :show]
+
+  def events_user_events_show
+    @events = Event.all
+    render :index
+  end
 
   def index
     @events = Event.all
@@ -8,51 +16,68 @@ class Admin::EventsController < ApplicationController
 
   def new
     @event = Event.new
+  end  
+  
+  def subscribe
+    @event.users << current_user
+    redirect_to @event, notice: "Vous êtes maintenant inscrit à cet événement."
+  end
+
+  def subscribe
+    @event = Event.find(params[:id])
+    @event.users << current_user
+    redirect_to @event
+  end
+
+  def unsubscribe
+    @event = Event.find(params[:id])
+    @event.users.delete(current_user)
+    redirect_to @event
   end
 
   def create
     @event = Event.new(event_params)
+
     if @event.save
-      redirect_to admin_events_path, notice: "Event created successfully."
+      redirect_to @event
     else
-      render :new
+      render 'new'
     end
   end
 
-  def show
-  end
-
-  def edit
+  def admin_events_show
+    @event = Event.find(params[:id])
   end
 
   def update
+    @event = Event.find(params[:id])
+
     if @event.update(event_params)
-      redirect_to admin_events_path, notice: "Event updated successfully."
+      redirect_to @event
     else
-      render :edit
+      render 'edit'
     end
   end
 
   def destroy
+    @event = Event.find(params[:id])
     @event.destroy
-    redirect_to admin_events_path, notice: "Event deleted successfully."
+
+    redirect_to events_path
   end
 
-  def register
-    @event.registrations.create(user: current_user)
-    redirect_to @event, notice: "You have been registered for the event."
+  def user_events_show
+    @events = Event.all
   end
 
-  def unregister
-    registration = @event.registrations.find_by(user: current_user)
-    registration.destroy if registration
-    redirect_to @event, notice: "You have been unregistered from the event."
+  def user_event_params
+    params.require(:user_event).permit(:event_id)
   end
 
   private
 
   def event_params
-    params.require(:event).permit(:name, :description, :start_time, :end_time)
+    params.require(:event).permit(:name, :description, :date_time, :end_time)
   end
 
   def set_event

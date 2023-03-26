@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CartsController < StoreController
-  helper 'spree/products', 'orders'
 
   respond_to :html
 

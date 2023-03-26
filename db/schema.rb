@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_23_133743) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_26_094523) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1186,6 +1186,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_23_133743) do
     t.datetime "confirmed_at", precision: nil
     t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
+    t.string "name"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true
     t.index ["reset_password_token"], name: "index_spree_users_on_reset_password_token_solidus_auth_devise", unique: true

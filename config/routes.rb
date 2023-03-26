@@ -10,6 +10,21 @@ Rails.application.routes.draw do
   resources :elevages
   end
 
+
+resources :user_events, only: [:index, :show]
+get '/t/categories/cours', to: 'admin/events#events_user_events_show', as: 'user_events_show'
+
+authenticated :user, ->(u) { u.admin? } do
+  get '/t/categories/cours/admin', to: 'events#admin_events_show', as: 'admin_events_show'
+end
+post '/user_events', to: 'user_events#create', as: 'create_user_event'
+get '/event/:id', to: 'events#show_event', as: 'show_event'
+
+resources :events do
+    post :subscribe
+    delete :unsubscribe
+  end
+
   devise_for(:user, {
     class_name: 'Spree::User',
     singular: :spree_user,
@@ -21,7 +36,18 @@ Rails.application.routes.draw do
     },
     skip: [:unlocks, :omniauth_callbacks],
     path_names: { sign_out: 'logout' }
-  })
+    })
+    
+     get 'elevage/t/categories/elevage', to: 'app/views/admin/elevages#show'
+
+
+      namespace :tenues, path: '/products' do
+          # inclure ici toutes les routes nécessaires pour la partie e-commerce de votre site
+          # par exemple :
+        resources :products
+        resources :orders
+      end
+ 
 
   resources :users, only: [:edit, :update]
 
@@ -70,6 +96,10 @@ Rails.application.routes.draw do
 
   get '/unauthorized', to: 'home#unauthorized', as: :unauthorized
   get '/cart_link', to: 'store#cart_link', as: :cart_link
+
+  get '*path', to: redirect('/tenues_d_equitation/%{path}'), constraints: lambda { |req|
+  req.path.start_with?('/products') || req.path.start_with?('/orders')
+  }
 
   # This line mounts Solidus's routes at the root of your application.
   # This means, any requests to URLs such as /products, will go to Spree::ProductsController.

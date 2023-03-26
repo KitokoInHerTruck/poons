@@ -1,6 +1,5 @@
 # Configure Solidus Preferences
 # See http://docs.solidus.io/Spree/AppConfiguration.html for details
-
 # Solidus version defaults for preferences that are not overridden
 Spree.load_defaults '3.3.1'
 
@@ -59,9 +58,10 @@ end
 Spree::Backend::Config.configure do |config|
   config.locale = 'fr'
 
-    config.menu_items << config.class::MenuItem.new(
-    [:elevage],
-    'ban',
+
+config.menu_items << config.class::MenuItem.new(
+  [:elevage],
+    'horselogo.svg',
     url: '/admin/elevages',
     position: 0
   )

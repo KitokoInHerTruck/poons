@@ -1,5 +1,10 @@
 class Admin::ElevagesController < Admin::BaseController
      
+def admin
+   @elevages = ::Elevage.all
+end
+
+
   def index
     @elevages = ::Elevage.all
   end
@@ -38,6 +43,11 @@ class Admin::ElevagesController < Admin::BaseController
     @elevage = ::Elevage.find(params[:id])
     @elevage.destroy
     redirect_to admin_elevages_path, notice: "Comment deleted successfully"
+  end
+
+  def home
+      @elevage = ::Elevage.first
+      render 'admin/elevages/show'
   end
 
   private

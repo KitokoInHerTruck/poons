@@ -95,6 +95,7 @@ group :development, :test do
   gem "factory_bot", ">= 4.8"
   gem "factory_bot_rails"
   gem "ffaker", "~> 2.13"
+  gem "faker"
   gem "rubocop", "~> 1.0"
   gem "rubocop-performance", "~> 1.5"
   gem "rubocop-rails", "~> 2.3"
@@ -108,3 +109,5 @@ gem 'kaminari-i18n', '~> 0.5.0'
 gem "solidus_stripe", "~> 4.4"
 
 gem 'deface', '~> 1.9'
+gem 'byebug', '~> 11.1', '>= 11.1.3'
+gem 'pry'

@@ -1,11 +1,14 @@
-<h1><%= @elevage.nom %></h1>
-<p><%= @elevage.description %></p>
-<p>Prix : <%= @elevage.prix %></p>
+<section class="hero">
+  <div class="hero__container">
+    <%= image_tag "Arkhan.jpg"%>
+    <div class="hero__message">
+      <h1 class="hero-title">
+        La boutique des Poon's
+      </h1>
 
-<% @elevage.images.each do |image| %>
-  <%= image_tag image.url %>
-<% end %>
-
-<% @elevage.videos.each do |video| %>
-  <%= video_tag video.url %>
-<% end %>
+      <p class="subtitle">
+        Tous les accessoires de competitions, pour les competiteurs.
+      </p>
+    </div>
+  </div>
+</section>
