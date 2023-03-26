@@ -74,6 +74,18 @@ class Admin::EventsController < ApplicationController
     params.require(:user_event).permit(:event_id)
   end
 
+
+  private
+
+  def event_params
+    params.require(:event).permit(:name, :description, :date_time, :end_time)
+  end
+
+  def set_event
+    @event = Event.find(params[:id])
+  end
+end
+
   private
 
   def event_params
@@ -85,6 +97,16 @@ class Admin::EventsController < ApplicationController
   end
 
   def require_admin
-    redirect_to root_path, alert: "You must be an admin to access this page." unless current_spree_user && current_spree_user.admin?
+    if current_spree_user && current_spree_user.admin?
+      # l'utilisateur est un administrateur, donc il peut accéder à toutes les actions
+      return true
+    elsif current_spree_user
+      # l'utilisateur est connecté, mais n'est pas un administrateur, donc on le redirige vers la page d'accueil avec un message d'alerte
+      redirect_to root_path, alert: "You must be an admin to access this page."
+      return false
+    else
+      # l'utilisateur n'est pas connecté, donc on le redirige vers la page de connexion
+      redirect_to new_spree_user_session_path
+      return false
+    end
   end
-end

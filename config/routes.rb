@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :events
   mount SolidusPaypalCommercePlatform::Engine, at: '/solidus_paypal_commerce_platform'
+
   root to: 'home#index'
   get '/home', to: redirect('/')
 
@@ -14,9 +15,12 @@ Rails.application.routes.draw do
 resources :user_events, only: [:index, :show]
 get '/t/categories/cours', to: 'admin/events#events_user_events_show', as: 'user_events_show'
 
+
 authenticated :user, ->(u) { u.admin? } do
   get '/t/categories/cours/admin', to: 'events#admin_events_show', as: 'admin_events_show'
 end
+
+
 post '/user_events', to: 'user_events#create', as: 'create_user_event'
 get '/event/:id', to: 'events#show_event', as: 'show_event'
 
@@ -38,7 +42,8 @@ resources :events do
     path_names: { sign_out: 'logout' }
     })
     
-     get 'elevage/t/categories/elevage', to: 'app/views/admin/elevages#show'
+   get '/t/categories/elevage', to: redirect('/')
+
 
 
       namespace :tenues, path: '/products' do

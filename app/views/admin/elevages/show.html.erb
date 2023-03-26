@@ -1,14 +1,24 @@
-<section class="hero">
-  <div class="hero__container">
-    <%= image_tag "Arkhan.jpg"%>
-    <div class="hero__message">
-      <h1 class="hero-title">
-        La boutique des Poon's
-      </h1>
+<header class="header">
+  <div class="header__secondary-navigation">
+    <%= render 'layouts/top_bar', taxons: taxons, taxon: taxon %>
+  </div>
+  <div class="header__primary-navigation">
+    <div class="category-navigation">
+      <% categories = taxonomies.first %>
 
-      <p class="subtitle">
-        Tous les accessoires de competitions, pour les competiteurs.
-      </p>
+        <section class="hero">
+          <div class="hero__container">
+            <%= image_tag "Arkhan.jpg"%>
+            <div class="hero__message">
+              <h1 class="hero-title">
+                La boutique des Poon's
+              </h1>
+
+              <p class="subtitle">
+                Tous les accessoires de competitions, pour les competiteurs.
+              </p>
+            </div>
+          </div>
+        </section>
     </div>
   </div>
-</section>

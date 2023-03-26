@@ -1,7 +1,9 @@
 <div class="top-bar">
+<%= link_to root_path do %>
   <figure class="logo">
-   <%= image_tag "poons.png" %>
+    <%= image_tag "poons.png" %>
   </figure>
+<% end %>
 
   <div class="top-bar__search">
     <%= render 'shared/search/search_bar', taxons: taxons, taxon: taxon %>
