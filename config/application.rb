@@ -15,6 +15,7 @@ module Poons
           *Spree::TestingSupport::FactoryBot.definition_file_paths,
           Rails.root.join('spec/fixtures/factories'),
         ]
+        config.i18n.available_locales = [:fr, :en]
       end
     end
 

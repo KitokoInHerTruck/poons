@@ -1,0 +1,28 @@
+<header class="header">
+  <div class="header__primary-navigation">
+    <div class="category-navigation">
+
+
+
+      <h2><%= @event.title %></h2>
+<p><%= @event.description %></p>
+<p><%= @event.date %></p>
+<%= link_to "S'inscrire", new_event_registration_path(@event) %>
+
+
+          <a href="/events">Voir tous les Concours</a>
+
+          <p style="color: green"><%= notice %></p>
+
+<% if @event.present? %>
+  <%= render @event %>
+<% else %>
+  <p>Aucun événement trouvé</p>
+<% end %>
+
+
+          <div>
+            <%= link_to "Revenir aux autres concours", events_path %>        
+          </div>
+    </div>
+  </div>

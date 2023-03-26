@@ -1348,6 +1348,7 @@ fr:
     home: Accueil
     i18n:
       available_locales: Paramètres régionaux disponibles
+      change: "Changer"
       fields: Champs
       language: Langue
       localization_settings: Réglages régionaux

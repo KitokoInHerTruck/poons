@@ -1,33 +1,18 @@
 Rails.application.routes.draw do
-  resources :events
+
   mount SolidusPaypalCommercePlatform::Engine, at: '/solidus_paypal_commerce_platform'
 
   root to: 'home#index'
   get '/home', to: redirect('/')
 
-
-  namespace :admin do
-  resources :events
+namespace :admin do
   resources :elevages
-  end
-
-
-resources :user_events, only: [:index, :show]
-get '/t/categories/cours', to: 'admin/events#events_user_events_show', as: 'user_events_show'
-
-
-authenticated :user, ->(u) { u.admin? } do
-  get '/t/categories/cours/admin', to: 'events#admin_events_show', as: 'admin_events_show'
+  resources :events
 end
 
+get '/t/categories/elevage', to: redirect('/')
+get '/events', to: 'admin/events#user_events_show', as: 'event_path'
 
-post '/user_events', to: 'user_events#create', as: 'create_user_event'
-get '/event/:id', to: 'events#show_event', as: 'show_event'
-
-resources :events do
-    post :subscribe
-    delete :unsubscribe
-  end
 
   devise_for(:user, {
     class_name: 'Spree::User',
@@ -42,10 +27,6 @@ resources :events do
     path_names: { sign_out: 'logout' }
     })
     
-   get '/t/categories/elevage', to: redirect('/')
-
-
-
       namespace :tenues, path: '/products' do
           # inclure ici toutes les routes nécessaires pour la partie e-commerce de votre site
           # par exemple :

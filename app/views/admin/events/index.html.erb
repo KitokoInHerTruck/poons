@@ -7,7 +7,7 @@
     <%= render event %>
     <p>
       <%= link_to "Voir ce concours", show_event_path(event) %>
-
+      <%= link_to "S'inscrire", new_event_registration_path(event) %>
     </p>
     <h2>Participants :</h2>
     <ul>
@@ -17,5 +17,3 @@
     </ul>
   <% end %>
 </div>
-
-
