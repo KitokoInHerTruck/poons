@@ -1,13 +1,4 @@
-  <h1>Nouveau concours</h1>
-
-  <%= render "form", event: @event %>
-  
-
-
-<div>
-  <%= link_to "Back to events", admin_events_path %>
-</div>
-
+  <center><h1>Nouveau concours</h1>
 
 <%= form_for @event, url: admin_events_path, html: {class: "form-horizontal"} do |f| %>
   <div class="form-group">
@@ -57,4 +48,4 @@
       <%= f.submit "Create Event", class: "btn btn-primary" %>
     </div>
   </div>
-<% end %>
+<% end %></center>

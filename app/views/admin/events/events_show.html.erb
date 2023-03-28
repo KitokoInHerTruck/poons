@@ -1,10 +1,7 @@
       <h2><%= @event.title %></h2>
-<p><%= @event.description %></p>
-<p><%= @event.date %></p>
-<%= link_to "S'inscrire", new_event_registration_path(@event) %>
 
 
-          <a href="/events">Voir tous les Concours</a>
+          
 
           <p style="color: green"><%= notice %></p>
 
@@ -13,7 +10,9 @@
 <% else %>
   <p>Aucun événement trouvé</p>
 <% end %>
-
+            <td><%= link_to "Modifier ce concours", edit_admin_event_path(@event) %></td><br>
+            <td><%= link_to "Supprimer ce concours", admin_event_path(@event), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir supprimer ce concours ?' } %></td><br>
+<a href="/events">Voir tous les Concours</a>
 
           <div>
             <%= link_to "Revenir aux autres concours", events_path %>        

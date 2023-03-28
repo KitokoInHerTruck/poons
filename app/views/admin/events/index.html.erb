@@ -1,4 +1,3 @@
-
 <% content_for :title do %>
   Liste des événements
 <% end %>
@@ -11,33 +10,33 @@
   Découvrez notre liste d'événements avec leurs dates et titres.
 <% end %>
 
-<% if current_spree_user.present? && current_spree_user.admin? %>
-  <%= link_to "Nouveau concours", new_admin_event_path %>
-<% end %>
-
-<% content_for :content do %>
-  <table>
-    <thead>
-      <tr>
-        <th>Titre</th>
-        <th>Date</th>
-        <% if current_spree_user.present? && current_spree_user.admin? %>
-          <th colspan="3"></th>
+<center>
+  <% if @events.blank? %>
+  <p>Aucun événement trouvé.</p>
+<% else %>
+ <div class="card-container">
+       <% @events.each do |event| %>
+      <div class="card">
+        <% if event.image.attached? %>
+          <%= image_tag event.image %>
         <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <% @events.each do |event| %>
-        <tr>
-          <td><%= event.title %></td>
-          <td><%= event.strat_date %></td>
-          <% if current_spree_user.present? && current_spree_user.admin? %>
-            <td><%= link_to "Modifier", edit_admin_event_path(event) %></td>
-            <td><%= link_to "Supprimer", admin_event_path(event), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir supprimer ce concours ?' } %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to event.title, event %></h5>
+            <% if event.start_date.present? %>
+              <p class="card-text"><%= event.start_date.strftime("%d/%m/%Y") %></p>
+            <else>
+              <p class="card-text">Date de début non spécifiée</p>
+            <% end %>
 
+          <% if current_spree_user.try(:admin?) %>
+            <div class="admin-actions">
+              <%= link_to 'Modifier', edit_admin_event_path(event), class: 'btn btn-secondary' %>
+              <%= link_to 'Supprimer', admin_event_path(event), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir supprimer cet événement ?' }, class: 'btn btn-danger' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+</center>

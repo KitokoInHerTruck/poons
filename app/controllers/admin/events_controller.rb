@@ -5,6 +5,7 @@ class Admin::EventsController < ApplicationController
 
   def index
     @events = Event.all
+    @event = Event.first
     @taxons = Spree::Taxon.all
   end
 

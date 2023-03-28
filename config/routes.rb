@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
     get '/events', to: 'admin/events#index', as: 'events'
-    get '/events/:id', to: 'events#show', as: 'event'
+    get '/events/:id', to: 'admin/events#events_show', as: 'event'
 
   namespace :admin do
     resources :elevages
@@ -16,9 +16,9 @@ Rails.application.routes.draw do
   end
 
   get '/t/categories/elevage', to: redirect('/'), as: 'elevage'
+  # sans cette première lignes j'ai la colonne de commerce
   get '/t/categories/cours', to: 'admin/events#index', as: 'user_events_show'
-  get '/admin/events', to: 'admin/events#index', as: 'admin_events_show'
-
+ get '/admin/events', to: 'admin/events#new_admin_event', as: 'new_events'
   get '/events/:event_id/registrations/new', to: 'event_registrations#new', as: 'new_event_registration'
   post '/events/:event_id/subscribe', to: 'events#subscribe', as: 'event_subscribe'
   delete '/events/:event_id/unsubscribe', to: 'events#unsubscribe', as: 'event_unsubscribe'

@@ -7,6 +7,11 @@ class OrdersController < StoreController
 
   before_action :store_guest_token
 
+  def index
+    @taxons = Spree::Taxon.all
+  end
+
+
   def show
     @order = Spree::Order.find_by!(number: params[:id])
     authorize! :show, @order, cookies.signed[:guest_token]

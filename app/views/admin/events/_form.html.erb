@@ -1,11 +1,11 @@
-<%= form_with(model: event) do |form| %>
-  <% if event.errors.any? %>
-    <div style="color: red">
+<%= form_with(model: @event.try(:persisted?) ? @event : Event.new), local: true do |form| %>
+  <% if @event.try(:errors).try(:any?) %>
+    <div id="error_explanation">
       <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
       <ul>
-        <% event.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% e@vent.errors.full_message.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
@@ -22,8 +22,8 @@
   </div>
 
   <div>
-    <%= form.label :strat_date, style: "display: block" %>
-    <%= form.datetime_field :strat_date %>
+    <%= form.label :start_date, style: "display: block" %>
+    <%= form.datetime_field :start_date %>
   </div>
 
   <div>
@@ -39,6 +39,11 @@
   <div>
     <%= form.label :location, style: "display: block" %>
     <%= form.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image %>
   </div>
 
   <div>
