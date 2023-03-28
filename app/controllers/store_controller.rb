@@ -7,6 +7,10 @@ class StoreController < Spree::BaseController
 
   layout 'storefront'
 
+  def index
+    @taxons = Spree::Taxon.all
+  end
+
   def unauthorized
     render 'shared/auth/unauthorized', layout: Spree::Config[:layout], status: 401
   end

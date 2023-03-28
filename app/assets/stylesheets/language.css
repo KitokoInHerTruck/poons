@@ -1,13 +1,19 @@
-.language-selector .flag-link {
-  display: inline-block;
-  width: 40px;
-  height: 25px;
-  margin-right: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease-in-out;
+#lang-toggle {
+  border: none;
+  background-color: transparent;
+  background-image: url("flagFr.png"); /* image par défaut */
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.language-selector .flag-link:hover {
-  transform: rotate(5deg);
+/* Style pour le survol lorsque le document est en français */
+:lang(fr) #lang-toggle:hover {
+  background-image: url("/assets/images/flagEn.png"); /* image lors du survol */
+}
+
+/* Style pour le survol lorsque le document est en anglais */
+:lang(en) #lang-toggle:hover {
+  background-image: url("/assets/images/flagFr.png"); /* image lors du survol */
 }

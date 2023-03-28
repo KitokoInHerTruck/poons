@@ -1,19 +1,43 @@
-<p style="color: green"><%= notice %></p>
 
-<h1>Liste des concours</h1>
+<% content_for :title do %>
+  Liste des événements
+<% end %>
 
-<div id="Concours">
-  <% @events.each do |event| %>
-    <%= render event %>
-    <p>
-      <%= link_to "Voir ce concours", show_event_path(event) %>
-      <%= link_to "S'inscrire", new_event_registration_path(event) %>
-    </p>
-    <h2>Participants :</h2>
-    <ul>
-      <% event.attendees.each do |attendee| %>
-        <li><%= attendee.name %></li>
+<% content_for :keywords do %>
+  événements, liste, dates, titres
+<% end %>
+
+<% content_for :description do %>
+  Découvrez notre liste d'événements avec leurs dates et titres.
+<% end %>
+
+<% if current_spree_user.present? && current_spree_user.admin? %>
+  <%= link_to "Nouveau concours", new_admin_event_path %>
+<% end %>
+
+<% content_for :content do %>
+  <table>
+    <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Date</th>
+        <% if current_spree_user.present? && current_spree_user.admin? %>
+          <th colspan="3"></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @events.each do |event| %>
+        <tr>
+          <td><%= event.title %></td>
+          <td><%= event.strat_date %></td>
+          <% if current_spree_user.present? && current_spree_user.admin? %>
+            <td><%= link_to "Modifier", edit_admin_event_path(event) %></td>
+            <td><%= link_to "Supprimer", admin_event_path(event), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir supprimer ce concours ?' } %></td>
+          <% end %>
+        </tr>
       <% end %>
-    </ul>
-  <% end %>
-</div>
+    </tbody>
+  </table>
+<% end %>
+

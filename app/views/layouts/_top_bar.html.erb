@@ -1,9 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="language.css">
+  <title>Document</title>
+
+</head>
+<body>
 <div class="top-bar">
-<%= link_to root_path do %>
-  <figure class="logo">
-    <%= image_tag "poons.png" %>
-  </figure>
-<% end %>
+  <%= link_to root_path do %>
+    <figure class="logo">
+      <%= image_tag "poons.png" %>
+    </figure>
+  <% end %>
 
   <div class="top-bar__search">
     <%= render 'shared/search/search_bar', taxons: taxons, taxon: taxon %>
@@ -15,24 +26,20 @@
     <%= link_to I18n.t('spree.login'), login_path, class: 'auth-link' %>
   <% end %>
 
+  <button id="lang-toggle">
+    <img src="/assets/images/flagFr.png" alt="French Flag">
+  </button>
+
   <div class="cart-link" id="link-to-cart">
     <noscript>
       <%= link_to t('spree.cart'), edit_cart_path %>
     </noscript>
   </div>
-
-<div class="language-selector">
-  <a href="#" class="flag-link">
-    <img src="path/to/french/flag/image" alt="French flag">
-  </a>
-  <a href="#" class="flag-link">
-    <img src="path/to/english/flag/image" alt="English flag">
-  </a>
-</div>
-
-
-
+  <script src="language.js"></script>
+  <script src="script.js"></script>
   <script>
     Solidus.fetch_cart('<%= j cart_link_path %>')
   </script>
 </div>
+</body>
+</html>

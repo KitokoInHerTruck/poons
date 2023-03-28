@@ -15,6 +15,7 @@ class ProductsController < StoreController
   def index
     @searcher = build_searcher(params.merge(include_images: true))
     @products = @searcher.retrieve_products
+    @taxons = Spree::Taxon.all
   end
 
   def show

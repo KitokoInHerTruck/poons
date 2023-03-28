@@ -1,32 +1,34 @@
-<div id="<%= dom_id event %>">
-  <p>
-    <strong>Concours AS1 Elite:</strong>
-    <%= event.title %>
-  </p>
+<% if event %>
+  <div id="<%= dom_id event %>">
+      <p>
+        <strong>Concours AS1 Elite:</strong>
+        <%= event.title %>
+      </p>
 
-  <p>
-    <strong>Description:</strong>
-    <%= event.description %>
-  </p>
+      <p>
+        <strong>Description:</strong>
+        <%= event.description %>
+      </p>
 
-  <p>
-    <strong>Strat date:</strong>
-    <%= event.strat_date %>
-  </p>
+      <p>
+        <strong>Strat date:</strong>
+        <%= event.strat_date %>
+      </p>
 
-  <p>
-    <strong>Duration:</strong>
-    <%= event.duration %>
-  </p>
+      <p>
+        <strong>Duration:</strong>
+        <%= event.duration %>
+      </p>
 
-  <p>
-    <strong>Price:</strong>
-    <%= event.price %>
-  </p>
+      <p>
+        <strong>Price:</strong>
+        <%= event.price %>
+      </p>
 
-  <p>
-    <strong>Location:</strong>
-    <%= event.location %>
-  </p>
+      <p>
+        <strong>Location:</strong>
+        <%= event.location %>
+      </p>
 
-</div>
+  </div>
+<% end %>

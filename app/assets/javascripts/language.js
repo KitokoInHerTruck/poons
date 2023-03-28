@@ -1,10 +1,19 @@
-$(".language-selector .flag-link").click(function (e) {
-  e.preventDefault(); // Empêche le lien de suivre son URL
+#lang-toggle {
+  border: none;
+  background-color: transparent;
+  background-image: url("flagFr.png"); /* image par défaut */
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-  var href = $(this).attr("href");
-  var lang = href.split("/")[1]; // Extrait la langue de l'URL
+/* Style pour le survol lorsque le document est en français */
+:lang(fr) #lang-toggle:hover {
+  background-image: url("/assets/images/flagEn.png"); /* image lors du survol */
+}
 
-  // Redirige vers la même page avec la nouvelle langue
-  window.location.href =
-    "/" + lang + window.location.pathname + window.location.search;
-});
+/* Style pour le survol lorsque le document est en anglais */
+:lang(en) #lang-toggle:hover {
+  background-image: url("/assets/images/flagFr.png"); /* image lors du survol */
+}

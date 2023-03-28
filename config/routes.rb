@@ -1,18 +1,27 @@
-Rails.application.routes.draw do
 
+Rails.application.routes.draw do
   mount SolidusPaypalCommercePlatform::Engine, at: '/solidus_paypal_commerce_platform'
 
   root to: 'home#index'
-  get '/home', to: redirect('/')
 
-namespace :admin do
-  resources :elevages
-  resources :events
-end
+    get '/events', to: 'admin/events#index', as: 'events'
+    get '/events/:id', to: 'events#show', as: 'event'
 
-get '/t/categories/elevage', to: redirect('/')
-get '/events', to: 'admin/events#user_events_show', as: 'event_path'
+  namespace :admin do
+    resources :elevages
+      resources :events do
+        post 'subscribe', on: :member
+        post 'unsubscribe', on: :member
+      end
+  end
 
+  get '/t/categories/elevage', to: redirect('/'), as: 'elevage'
+  get '/t/categories/cours', to: 'admin/events#index', as: 'user_events_show'
+  get '/admin/events', to: 'admin/events#index', as: 'admin_events_show'
+
+  get '/events/:event_id/registrations/new', to: 'event_registrations#new', as: 'new_event_registration'
+  post '/events/:event_id/subscribe', to: 'events#subscribe', as: 'event_subscribe'
+  delete '/events/:event_id/unsubscribe', to: 'events#unsubscribe', as: 'event_unsubscribe'
 
   devise_for(:user, {
     class_name: 'Spree::User',
@@ -25,15 +34,12 @@ get '/events', to: 'admin/events#user_events_show', as: 'event_path'
     },
     skip: [:unlocks, :omniauth_callbacks],
     path_names: { sign_out: 'logout' }
-    })
-    
-      namespace :tenues, path: '/products' do
-          # inclure ici toutes les routes nécessaires pour la partie e-commerce de votre site
-          # par exemple :
-        resources :products
-        resources :orders
-      end
- 
+  })
+
+  namespace :tenues, path: '/products' do
+    resources :products
+    resources :orders
+  end
 
   resources :users, only: [:edit, :update]
 
@@ -41,7 +47,7 @@ get '/events', to: 'admin/events#user_events_show', as: 'event_path'
     get '/login', to: 'user_sessions#new', as: :login
     post '/login', to: 'user_sessions#create', as: :create_new_session
     match '/logout', to: 'user_sessions#destroy', as: :logout, via: Devise.sign_out_via
-    get '/signup', to: 'user_registrations#new', as: :signup
+    match '/signup', to: 'user_registrations#new', via: [:get, :post], as: :signup
     post '/signup', to: 'user_registrations#create', as: :registration
     get '/password/recover', to: 'user_passwords#new', as: :recover_password
     post '/password/recover', to: 'user_passwords#create', as: :reset_password
@@ -93,8 +99,4 @@ get '/events', to: 'admin/events#user_events_show', as: 'event_path'
   #
   # We ask that you don't use the :as option here, as Solidus relies on it being the default of "spree"
    mount Spree::Core::Engine, at: '/'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
 end

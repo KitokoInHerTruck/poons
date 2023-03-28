@@ -3,13 +3,9 @@ class Admin::EventsController < ApplicationController
 
   before_action :authenticate_spree_user!, except: [:index, :user_events_show]
 
-  def user_events_show
-    @events = Event.all
-    render :index
-  end
-
   def index
     @events = Event.all
+    @taxons = Spree::Taxon.all
   end
 
   def new
@@ -57,14 +53,25 @@ class Admin::EventsController < ApplicationController
   end
 
   def events_show
-  @event = Event.find_by_id(params[:id])
+  @event = Event.find_by(id:params[:id])
    if @event.nil?
       flash[:error] = "Cet événement n'existe pas"
-      redirect_to events_path
+      redirect_to event_path
   else
-      render 'user_events_show'
+      render 'events_show'
    end
   end
+
+def admin_event_show
+  @event = Event.find(params[:id])
+  if @event.nil?
+    flash[:error] = "Cet événement n'existe pas"
+    redirect_to event_path_url
+  else
+    render 'admin/events/event_show', locals: { event: @event }
+  end
+end
+
 
 
   def event_params
@@ -77,5 +84,5 @@ class Admin::EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:name, :description, :date_time, :end_time)
   end
-
+end
 
