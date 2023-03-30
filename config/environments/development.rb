@@ -61,6 +61,8 @@ Rails.application.configure do
 
   config.action_view.form_with_generates_remote_forms = true
 
+  config.log_level = :debug
+
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

@@ -1,7 +1,15 @@
+require 'spree/user'
+
 class Admin::EventsController < ApplicationController
+  before_action :set_event, only: %i[ show edit update destroy ]
+  before_action :require_admin, only: %i[ new create edit update destroy ]
+  
 
-
-  before_action :authenticate_spree_user!, except: [:index, :user_events_show]
+  def require_admin
+    unless current_spree_user.admin?
+      redirect_to root_path, alert: "Access denied."
+    end
+  end
 
   def index
     @events = Event.all
@@ -12,6 +20,16 @@ class Admin::EventsController < ApplicationController
   def new
     @event = Event.new
   end  
+
+   def create
+    @event = Event.new(event_params)
+
+    if @event.save
+      redirect_to admin_events_path, notice: "Event created successfully."
+    else
+      render 'new'
+    end
+  end
   
   def subscribe
     @event = Event.find(params[:id])
@@ -25,35 +43,7 @@ class Admin::EventsController < ApplicationController
     redirect_to @event
   end
 
-  def create
-    @event = Event.new(event_params)
-
-    if @event.save
-      redirect_to @event
-    else
-      render 'new'
-    end
-  end
-
-
-  def update
-    @event = Event.find(params[:id])
-
-    if @event.update(event_params)
-      redirect_to @event
-    else
-      render 'edit'
-    end
-  end
-
-  def destroy
-    @event = Event.find(params[:id])
-    @event.destroy
-
-    redirect_to events_path
-  end
-
-  def events_show
+    def events_show
   @event = Event.find_by(id:params[:id])
    if @event.nil?
       flash[:error] = "Cet événement n'existe pas"
@@ -63,27 +53,40 @@ class Admin::EventsController < ApplicationController
    end
   end
 
-def admin_event_show
-  @event = Event.find(params[:id])
-  if @event.nil?
-    flash[:error] = "Cet événement n'existe pas"
-    redirect_to event_path_url
-  else
-    render 'admin/events/event_show', locals: { event: @event }
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:id])
+
+    if @event.update(event_params[:id])
+      redirect_to admin_events_path, notice: "Event updated successfully."
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @event = Event.find(params[:id])
+    @event.destroy
+    redirect_to admin_events_path, notice: "Event deleted successfully."
   end
 end
-
-
-
-  def event_params
-    params.require(:event).permit(:event_id)
-  end
 
 
   private
 
+
+  def set_event
+    @event = Event.find(params[:id])
+  end
+
   def event_params
     params.require(:event).permit(:name, :description, :date_time, :end_time)
   end
-end
+  
+  def check_authorization
+    authorize! :manage, Event
+  end
 

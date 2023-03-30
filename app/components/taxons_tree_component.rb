@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class TaxonsTreeComponent < ViewComponent::Base
   attr_reader :root_taxon, :title, :current_taxon, :max_level, :base_class
 
@@ -40,7 +38,7 @@ class TaxonsTreeComponent < ViewComponent::Base
 
         content_tag :li, class: css_class do
           link_to(taxon.name, nested_taxons_path(taxon)) +
-          tree(root_taxon: taxon, base_class: nil, max_level: max_level - 1)    
+            tree(root_taxon: taxon, base_class: nil, max_level: max_level - 1)
         end
       end
 
@@ -48,4 +46,3 @@ class TaxonsTreeComponent < ViewComponent::Base
     end
   end
 end
-#link_to(taxon.name, helpers.taxon_seo_url(taxon))

@@ -3,7 +3,7 @@
 class ProductsController < StoreController
   before_action :load_product, only: :show
   before_action :load_taxon, only: :index
-
+  helper Spree::BaseHelper
 
 
   respond_to :html
@@ -13,9 +13,10 @@ class ProductsController < StoreController
   end
 
   def index
+    @taxons = Spree::Taxon.all
     @searcher = build_searcher(params.merge(include_images: true))
     @products = @searcher.retrieve_products
-    @taxons = Spree::Taxon.all
+    @taxons = Spree::Price.where(currency: current_currency, variant_id: @products.pluck(:id)).range(:amount)
   end
 
   def show

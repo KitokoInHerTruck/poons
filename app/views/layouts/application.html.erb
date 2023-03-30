@@ -1,25 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
     <title>Votre titre de page</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%= csrf_meta_tags %>
-  <%= javascript_include_tag 'solidus_starter_frontend' %> 
-  <%= stylesheet_link_tag 'solidus_starter_frontend', media: 'screen' %> 
-  <link rel="stylesheet" href="app/assets/stylesheets/application.css"> 
-  <%= javascript_importmap_tags %> 
-  <%= favicon_link_tag 'poons.ico' %> 
-  <%= yield :head %>
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <%= csrf_meta_tags %> <%= javascript_include_tag 'solidus_starter_frontend'
+    %> <%= stylesheet_link_tag 'solidus_starter_frontend', media: 'screen' %>
+    <link rel="stylesheet" href="app/assets/stylesheets/application.css" />
+    <%= javascript_importmap_tags %> 
+    <%= favicon_link_tag 'poons.ico' %> <%= yield :head %>
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-    <%= yield %>
-    
-    <footer>
-    </footer>
+    <%= render 'layouts/header' %> <%= yield %>
   </body>
+  <footer>
+    
+  </footer>
 </html>

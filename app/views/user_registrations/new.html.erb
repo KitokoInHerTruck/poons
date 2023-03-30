@@ -1,9 +1,28 @@
+
+
+
+
 <article class="auth-container" id="new-customer">
   <h1><%= I18n.t('spree.new_customer') %></h1>
 
   <%= render 'shared/error_messages', target: resource %>
 
-  <%= form_for resource, as: :spree_user, url: registration_path(resource), html: { class: "auth-form" } do |f| %>
+    <% if @spree_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@spree_user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @spree_user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_for(Spree::User.new, url: signup_url) do |f| %>
+    <!-- form fields go here -->
+  <% end %>
+  <%= form_for Spree::User.new, as: :spree_user, url: registration_path(resource), html: { class: "auth-form" } do |f| %>
+
     <div class="auth-form__input-wrapper">
       <div class="text-input">
         <%= f.label :email, "#{t("spree.email")}:" %>

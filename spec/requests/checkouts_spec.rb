@@ -352,7 +352,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
         end
       end
 
-      context "when the country is not a shippable country" do
+      context "when the  is not a shippable country" do
         let(:foreign_address) { create(:address, country_iso_code: "CA") }
 
         before do

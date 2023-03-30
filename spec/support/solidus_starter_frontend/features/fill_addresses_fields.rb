@@ -17,7 +17,7 @@ module FillAddressFields
     fields.each do |field|
       fill_in "order_bill_address_attributes_#{field}", with: address.send(field).to_s
     end
-    select 'United States', from: "order_bill_address_attributes_country_id"
+    select 'France', from: "order_bill_address_attributes_country_id"
     select address.state.name.to_s, from: "order_bill_address_attributes_state_id"
 
     check 'order_use_billing'

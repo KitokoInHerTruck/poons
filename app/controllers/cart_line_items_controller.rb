@@ -2,6 +2,7 @@
 
 class CartLineItemsController < StoreController
 
+ 
   respond_to :html
 
   before_action :store_guest_token

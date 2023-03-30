@@ -1,53 +1,54 @@
-
 Rails.application.routes.draw do
   mount SolidusPaypalCommercePlatform::Engine, at: '/solidus_paypal_commerce_platform'
 
   root to: 'home#index'
 
-    get '/events', to: 'admin/events#index', as: 'events'
-    get '/events/:id', to: 'admin/events#events_show', as: 'event'
+  get '/events', to: 'admin/events#index', as: 'events'
+  get '/events/:id', to: 'admin/events#events_show', as: 'event'
+  get '/events/:id/edit', to: 'admin/events#edit', as: 'edit'
 
   namespace :admin do
     resources :elevages
-      resources :events do
-        post 'subscribe', on: :member
-        post 'unsubscribe', on: :member
-      end
+    resources :events do
+      post 'subscribe', on: :member
+      post 'unsubscribe', on: :member
+    end
   end
 
   get '/t/categories/elevage', to: redirect('/'), as: 'elevage'
-  # sans cette première lignes j'ai la colonne de commerce
+  # sans cette première ligne j'ai la colonne de commerce
   get '/t/categories/cours', to: 'admin/events#index', as: 'user_events_show'
- get '/admin/events', to: 'admin/events#new_admin_event', as: 'new_events'
-  get '/events/:event_id/registrations/new', to: 'event_registrations#new', as: 'new_event_registration'
+  get '/admin/events', to: 'admin/events#new_admin_event', as: 'new_events'
+  get '/events/:event_id/subscribe/new', to: 'event_subscribe#new', as: 'new_event_subscribe'
   post '/events/:event_id/subscribe', to: 'events#subscribe', as: 'event_subscribe'
   delete '/events/:event_id/unsubscribe', to: 'events#unsubscribe', as: 'event_unsubscribe'
 
   devise_for(:user, {
-    class_name: 'Spree::User',
-    singular: :spree_user,
-    controllers: {
-      sessions: 'user_sessions',
-      registrations: 'user_registrations',
-      passwords: 'user_passwords',
-      confirmations: 'user_confirmations'
-    },
-    skip: [:unlocks, :omniauth_callbacks],
-    path_names: { sign_out: 'logout' }
-  })
+               class_name: 'Spree::User',
+               singular: :spree_user,
+               controllers: {
+                 sessions: 'user_sessions',
+                 registrations: 'user_registrations',
+                 passwords: 'user_passwords',
+                 confirmations: 'user_confirmations'
+               },
+               skip: %i[unlocks omniauth_callbacks],
+               path_names: { sign_out: 'logout' }
+             })
 
   namespace :tenues, path: '/products' do
     resources :products
     resources :orders
   end
 
-  resources :users, only: [:edit, :update]
+  resources :users, only: %i[edit update]
 
   devise_scope :spree_user do
     get '/login', to: 'user_sessions#new', as: :login
     post '/login', to: 'user_sessions#create', as: :create_new_session
     match '/logout', to: 'user_sessions#destroy', as: :logout, via: Devise.sign_out_via
-    match '/signup', to: 'user_registrations#new', via: [:get, :post], as: :signup
+    # Changed called method for new user registration.
+    get '/signup', to: 'user_registrations#new', as: :signup
     post '/signup', to: 'user_registrations#create', as: :registration
     get '/password/recover', to: 'user_passwords#new', as: :recover_password
     post '/password/recover', to: 'user_passwords#create', as: :reset_password
@@ -58,7 +59,7 @@ Rails.application.routes.draw do
 
   resource :account, controller: 'users'
 
-  resources :products, only: [:index, :show]
+  resources :products, only: %i[index show]
 
   resources :cart_line_items, only: :create
 
@@ -79,7 +80,7 @@ Rails.application.routes.draw do
     resources :coupon_codes, only: :create
   end
 
-  resource :cart, only: [:edit, :update] do
+  resource :cart, only: %i[edit update] do
     put 'empty'
   end
 
@@ -89,8 +90,8 @@ Rails.application.routes.draw do
   get '/unauthorized', to: 'home#unauthorized', as: :unauthorized
   get '/cart_link', to: 'store#cart_link', as: :cart_link
 
-  get '*path', to: redirect('/tenues_d_equitation/%{path}'), constraints: lambda { |req|
-  req.path.start_with?('/products') || req.path.start_with?('/orders')
+  get '*path', to: redirect('/tenues_d_equitation/%<path>s'), constraints: lambda { |req|
+    req.path.start_with?('/products') || req.path.start_with?('/orders')
   }
 
   # This line mounts Solidus's routes at the root of your application.
@@ -98,5 +99,5 @@ Rails.application.routes.draw do
   # If you would like to change where this engine is mounted, simply change the :at option to something different.
   #
   # We ask that you don't use the :as option here, as Solidus relies on it being the default of "spree"
-   mount Spree::Core::Engine, at: '/'
+  mount Spree::Core::Engine, at: '/'
 end

@@ -15,6 +15,10 @@ class UsersController < StoreController
     role == "admin"
   end
 
+  def spree_user?
+    self.is_a?(Spree::User)
+  end
+
   def index
     @users = User.joins(registrations: :event).where(events: {name: 'Event Name'})
   end
@@ -28,14 +32,17 @@ class UsersController < StoreController
 
   def create
     @user = Spree::User.new(user_params)
+    Rails.logger.info("Before saving user: #{@user}")
     if @user.save
-
+      Rails.logger.info("User saved successfully: #{@user}")
       if current_order
         session[:guest_token] = nil
       end
 
       redirect_back_or_default(root_url)
     else
+      Rails.logger.info("Le fichier CSS n'a pas pu être chargé")
+      Rails.logger.info("Errors: #{@user.errors}")
       render :new
     end
   end
@@ -64,6 +71,13 @@ class UsersController < StoreController
     end
   end
 
+    def destroy
+      @event = Event.find(params[:id])
+      @event.destroy
+      redirect_to admin_events_path, notice: "Event deleted successfully."
+    end
+end
+
   private
 
   def user_params
@@ -82,4 +96,4 @@ class UsersController < StoreController
   def accurate_title
     I18n.t('spree.my_account')
   end
-end
+
