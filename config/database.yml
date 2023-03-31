@@ -82,5 +82,6 @@ test:
 production:
   <<: *default
   database: poons_production
-  username: poons
-  password: <%= ENV["DATABASE_URL"] %>
+  username: Isa
+  password: <%= ENV["cf8f1f6e6a2a8986b6d2ce8e03f433c0b922c828b1a6d1ae80f6fe78e2604dc2"] %>
+  url: "postgres://tsuacwqxshcemp:cf8f1f6e6a2a8986b6d2ce8e03f433c0b922c828b1a6d1ae80f6fe78e2604dc2@ec2-54-208-11-146.compute-1.amazonaws.com:5432/dblisc784olte1"
