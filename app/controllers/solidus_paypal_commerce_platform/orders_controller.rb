@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module SolidusPaypalCommercePlatform
   class OrdersController < ::Spree::Api::BaseController
     skip_before_action :authenticate_user

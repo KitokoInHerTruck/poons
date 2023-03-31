@@ -19,6 +19,7 @@
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>" data-turbo="false">
     <%= render 'layouts/header', taxons: @taxons, taxon: @taxon %>
     <%= flash_messages %>
+    <%= render BreadcrumbsComponent.new(@taxon) %>
     <main>
       <%= yield %>
     </main>
