@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount SolidusPaypalCommercePlatform::Engine, at: '/solidus_paypal_commerce_platform'
 
-  root to: 'home#index'
+  root to: redirect('/t/categories/elevage')
 
   get '/events', to: 'admin/events#index', as: 'events'
   get '/events/:id', to: 'admin/events#events_show', as: 'event'
@@ -17,7 +17,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/t/categories/elevage', to: redirect('/'), as: 'elevage'
   # sans cette première ligne j'ai la colonne de commerce
   get '/t/categories/cours', to: 'admin/events#index', as: 'user_events_show'
   get '/admin/events', to: 'admin/events#new_admin_event', as: 'new_events'
