@@ -83,4 +83,4 @@ production:
   <<: *default
   database: poons_production
   username: poons
-  password: <%= ENV["POONS_DATABASE_PASSWORD"] %>
+  password: <%= ENV["DATABASE_URL"] %>
