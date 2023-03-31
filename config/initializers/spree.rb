@@ -62,7 +62,7 @@ Spree::Backend::Config.configure do |config|
 config.menu_items << config.class::MenuItem.new(
   [:elevage],
     'horselogo.svg',
-    url: '/admin/elevages',
+    url: '/root',
     position: 0
   )
 

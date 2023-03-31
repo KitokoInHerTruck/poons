@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= yield(:title) || 'Administration' %> | Mon site e-commerce</title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= yield(:head) %>
+</head>
+<body>
+  <%= render partial: 'spree/admin/shared/navigation' %>
+  <div id="content">
+    <%= yield %>
+  </div>
+  <%= render partial: 'spree/admin/shared/footer' %>
+</body>
+</html>
