@@ -60,7 +60,7 @@ class Admin::EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
 
-    if @event.update(event_params[:id])
+    if @event.update(event_params)
       redirect_to admin_events_path, notice: "Event updated successfully."
     else
       render 'edit'
@@ -83,7 +83,7 @@ end
   end
 
   def event_params
-    params.require(:event).permit(:name, :description, :date_time, :end_time)
+    params.require(:event).permit(:title, :description, :start_date, :duration, :price, :location, :image)
   end
   
   def check_authorization

@@ -1,8 +1,8 @@
-<%= form_with(model: @event.try(:persisted?) ? @event: Event.new, url: event_path(@event), local: true) do |form| %> 
+<center><%= form_with(model: @event.try(:persisted?) ? @event: Event.new, url: eadmin_events_path, locals: true) do |form| %> 
   <% if @event.try(:errors).try(:any?) %>
     <div id="error_explanation">
       <h2>
-        <%= pluralize(event.errors.count, "error") %> prohibited this event from
+        <%= pluralize(@event.errors.count, "error") %> prohibited this event from
         being saved:
       </h2>
       <ul>
@@ -12,33 +12,44 @@
       </ul>
     </div>
   <% end %>
+
     <div>
-      <%= form.label :title, style: "display: block" %> <%= form.text_field :title
-      %>
+      <%= form.label :Concours, style: "display: block" %>
+      <%= form.text_field :title %>
     </div>
 
     <div>
-      <%= form.label :description, style: "display: block" %> <%= form.text_area :description %>
+      <%= form.label :description, style: "display: block" %>
+      <%= form.text_area :description %>
     </div>
 
     <div>
-      <%= form.label :start_date, style: "display: block" %> <%= form.datetime_field :start_date %>
+      <%= form.label :Date, style: "display: block" %>
+      <%= form.datetime_field :start_date %>
     </div>
 
     <div>
-      <%= form.label :duration, style: "display: block" %> <%= form.number_field :duration %>
+      <%= form.label :"Nombre de jour", style: "display: block" %>
+      <%= form.number_field :duration %>
     </div>
 
     <div>
-      <%= form.label :price, style: "display: block" %> <%= form.number_field :price %>
+      <%= form.label :Prix, style: "display: block" %>
+      <%= form.number_field :price %>
     </div>
 
     <div>
-      <%= form.label :location, style: "display: block" %> <%= form.text_field :location %>
+      <%= form.label :Lieu, style: "display: block" %>
+      <%= form.text_field :location %>
     </div>
 
-    <div class="field"><%= form.label :image %> <%= form.file_field :image %></div>
+    <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+    </div>
 
-    <div><%= form.submit %></div>
+    <div>
+      <%= form.submit %>
+    </div>
 
-<% end %>
+<% end %></center>

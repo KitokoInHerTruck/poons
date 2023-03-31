@@ -113,3 +113,4 @@ gem 'byebug', '~> 11.1', '>= 11.1.3'
 gem 'pry'
 gem 'rails-i18n', '~> 7.0.0' # For 7.0.0
 gem 'formtastic'
+gem 'bootstrap'

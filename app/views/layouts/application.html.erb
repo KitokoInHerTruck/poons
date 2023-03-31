@@ -4,10 +4,12 @@
     <title>Votre titre de page</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <%= csrf_meta_tags %> <%= javascript_include_tag 'solidus_starter_frontend'
-    %> <%= stylesheet_link_tag 'solidus_starter_frontend', media: 'screen' %>
+    <%= csrf_meta_tags %>
+    <%= javascript_include_tag 'solidus_starter_frontend' %>
+    <%= stylesheet_link_tag 'solidus_starter_frontend', media: 'screen' %>
     <link rel="stylesheet" href="app/assets/stylesheets/application.css" />
-    <%= javascript_importmap_tags %> 
+    <%= javascript_importmap_tags %>
+
     <%= favicon_link_tag 'poons.ico' %> <%= yield :head %>
   </head>
 
@@ -15,6 +17,6 @@
     <%= render 'layouts/header' %> <%= yield %>
   </body>
   <footer>
-    
+    <%= render 'layouts/footer' %> <%= yield %>
   </footer>
 </html>

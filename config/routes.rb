@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   get '/events', to: 'admin/events#index', as: 'events'
   get '/events/:id', to: 'admin/events#events_show', as: 'event'
-  get '/events/:id/edit', to: 'admin/events#edit', as: 'edit'
+  get '/events/:id/edit', to: 'admin/events#edit', as: 'edit_event'
+  put '/events/:id', to: 'admin/events#update', as: 'update_event'
+
 
   namespace :admin do
     resources :elevages
@@ -86,6 +88,8 @@ Rails.application.routes.draw do
 
   # route globbing for pretty nested taxon and product paths
   get '/t/*id', to: 'taxons#show', as: :nested_taxons
+  get '/t/*id', to: 'taxons#show', as: :taxon_seo_url
+
 
   get '/unauthorized', to: 'home#unauthorized', as: :unauthorized
   get '/cart_link', to: 'store#cart_link', as: :cart_link
@@ -93,6 +97,8 @@ Rails.application.routes.draw do
   get '*path', to: redirect('/tenues_d_equitation/%<path>s'), constraints: lambda { |req|
     req.path.start_with?('/products') || req.path.start_with?('/orders')
   }
+
+resources :taxons
 
   # This line mounts Solidus's routes at the root of your application.
   # This means, any requests to URLs such as /products, will go to Spree::ProductsController.

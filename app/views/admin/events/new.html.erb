@@ -2,42 +2,42 @@
 
 <%= form_for @event, url: admin_events_path, html: {class: "form-horizontal"} do |f| %>
   <div class="form-group">
-    <%= f.label :title, class: "col-sm-2 control-label" %>
+    <%= f.label :Concours, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :title, class: "form-control" %>
     </div>
   </div>
   
   <div class="form-group">
-    <%= f.label :description, class: "col-sm-2 control-label" %>
+    <%= f.label :Description, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_area :description, class: "form-control" %>
     </div>
   </div>
   
   <div class="form-group">
-    <%= f.label :start_time, class: "col-sm-2 control-label" %>
+    <%= f.label :Date, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.datetime_select :start_time, class: "form-control" %>
     </div>
   </div>
   
   <div class="form-group">
-    <%= f.label :duration, class: "col-sm-2 control-label" %>
+    <%= f.label :"Nombre de jours", class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.number_field :duration, class: "form-control" %>
     </div>
   </div>
   
   <div class="form-group">
-    <%= f.label :price, class: "col-sm-2 control-label" %>
+    <%= f.label :Prix, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.number_field :price, class: "form-control" %>
     </div>
   </div>
   
   <div class="form-group">
-    <%= f.label :location, class: "col-sm-2 control-label" %>
+    <%= f.label :Lieu, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :location, class: "form-control" %>
     </div>
@@ -45,7 +45,13 @@
   
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Create Event", class: "btn btn-primary" %>
+      <%= f.submit "Concours créé", class: "btn btn-primary" %>
     </div>
   </div>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+
 <% end %></center>

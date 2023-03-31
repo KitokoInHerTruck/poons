@@ -719,7 +719,8 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
     fill_in "#{address}_name", with: "Ryan Bigg"
     fill_in "#{address}_address1", with: "143 Swan Street"
     fill_in "#{address}_city", with: "Richmond"
-    select "France", from: "#{address}_country_id"
+    select "United States of America", from: "#{address}_country_id"
+    select "Alabama", from: "#{address}_state_id"
     fill_in "#{address}_zipcode", with: "12345"
     fill_in "#{address}_phone", with: "(555) 555-5555"
   end
