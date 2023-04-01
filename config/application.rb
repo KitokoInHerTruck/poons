@@ -16,6 +16,7 @@ module Poons
           Rails.root.join('spec/fixtures/factories'),
         ]
         config.i18n.available_locales = [:fr, :en]
+        config.address_requires_state = false
       end
     end
 
