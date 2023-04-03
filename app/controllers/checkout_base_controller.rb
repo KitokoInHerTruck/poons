@@ -11,6 +11,8 @@ class CheckoutBaseController < StoreController
 
   before_action :check_authorization
 
+  helper 'orders', 'spree/checkout'
+
   rescue_from Spree::Core::GatewayError, with: :rescue_from_spree_gateway_error
   rescue_from Spree::Order::InsufficientStock, with: :insufficient_stock_error
 

@@ -1,4 +1,5 @@
 module SolidusPaypalCommercePlatform
+  
   class OrdersController < ::Spree::Api::BaseController
     skip_before_action :authenticate_user
     include ::Spree::Core::ControllerHelpers::Auth

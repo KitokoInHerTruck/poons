@@ -30,7 +30,6 @@ class CheckoutsController < CheckoutBaseController
       render :edit
     end
   end
-end
 
   private
 
@@ -196,3 +195,4 @@ end
     token_order_path(@order, @order.guest_token)
   end
 
+end
